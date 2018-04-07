@@ -484,6 +484,11 @@ public class DispatcherServlet extends FrameworkServlet {
 
 	/**
 	 * This implementation calls {@link #initStrategies}.
+	 * 此方法是驱动dispathcerDervlet 初始化自身九大组件的一个入口，
+	 * 有父类的方法驱动。
+	 *
+	 * 每个servlet 在容器启用的时候，容器都会调用 servlet 的init方法
+	 * 所以，最本质的入口其实就httpServlet 的init 方法
 	 */
 	@Override
 	protected void onRefresh(ApplicationContext context) {
@@ -493,6 +498,8 @@ public class DispatcherServlet extends FrameworkServlet {
 	/**
 	 * Initialize the strategy objects that this servlet uses.
 	 * <p>May be overridden in subclasses in order to initialize further strategy objects.
+	 * 初始化策略对象，子类只要重写此方法，便可以添加定制的初始化方法，或是对象
+	 *
 	 */
 	protected void initStrategies(ApplicationContext context) {
 		initMultipartResolver(context);
