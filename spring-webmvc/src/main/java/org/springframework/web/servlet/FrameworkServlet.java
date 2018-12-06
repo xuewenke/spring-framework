@@ -525,6 +525,13 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 	 * @see #setContextConfigLocation
 	 */
 	protected WebApplicationContext initWebApplicationContext() {
+
+		/**
+		 * 获取web app根容器   WebApplicationContext 就是 dispatchServlet 的根容器，
+		 * 一个 web app 应用可以有多个 dispatchServlet 有多少个 dispathServlet 就有
+		 * 多少个 WebApplicationContext， applicationContext spring应用的根容器，
+		 * 只有一个。
+		 */
 		WebApplicationContext rootContext =
 				WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		WebApplicationContext wac = null;
@@ -558,6 +565,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 			wac = createWebApplicationContext(rootContext);
 		}
 
+		// 刷新
 		if (!this.refreshEventReceived) {
 			// Either the context is not a ConfigurableApplicationContext with refresh
 			// support or the context injected at construction time had already been
@@ -565,6 +573,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 			onRefresh(wac);
 		}
 
+		//  把  WebApplicationContext 设置到servlet里
 		if (this.publishContext) {
 			// Publish the context as a servlet context attribute.
 			String attrName = getServletContextAttributeName();
